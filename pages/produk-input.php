@@ -1,11 +1,13 @@
 <?php
-include_once __DIR__ . '/../config/class-master.php';
-$master = new MasterData();
-$kategori = $master->getAllKategori();
+include_once '../config/class-master.php'; // pastikan path benar
 
-if(isset($_POST['simpan'])){
-    if($master->insertProduk($_POST)){
-        echo "<script>alert('Produk berhasil disimpan!');window.location='produk-list.php';</script>";
+$produk = new MasterData(); // buat objek dari class MasterData
+$kategori = $produk->getAllKategori(); // ambil semua kategori (untuk dropdown nanti)
+
+// Cek jika tombol "Simpan" ditekan
+if (isset($_POST['simpan'])) {
+    if ($produk->insertProduk($_POST)) {
+        echo "<script>alert('Produk berhasil disimpan!'); window.location='produk-list.php';</script>";
     } else {
         echo "<script>alert('Gagal menyimpan produk!');</script>";
     }
@@ -46,7 +48,7 @@ if(isset($_POST['simpan'])){
             <label>Kategori</label>
             <select name="id_kategori" class="form-select" required>
                 <option value="">-- Pilih Kategori --</option>
-                <?php while($row = $kategori->fetch_assoc()){ ?>
+                <?php while ($row = $kategori->fetch_assoc()) { ?>
                     <option value="<?= $row['id_kategori'] ?>"><?= $row['nama_kategori'] ?></option>
                 <?php } ?>
             </select>

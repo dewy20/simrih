@@ -1,11 +1,17 @@
 <?php
+// Panggil class MasterData
 include_once __DIR__ . '/../config/class-master.php';
 $master = new MasterData();
+
+// Tambah kategori baru
 if(isset($_POST['tambah'])){
-    $master->insertKategori($_POST['nama_kategori']);
+    $nama_kategori = $_POST['nama_kategori'];
+    $master->insertKategori($nama_kategori);
     header('Location: kategori.php');
     exit;
 }
+
+// Ambil semua kategori dari database
 $kategori = $master->getAllKategori();
 ?>
 <!DOCTYPE html>
@@ -18,17 +24,29 @@ $kategori = $master->getAllKategori();
 <body class="bg-light">
 <div class="container mt-4">
     <h3>Kelola Kategori</h3>
+
+    <!-- Form tambah kategori -->
     <form method="POST" class="mb-3">
         <div class="input-group">
             <input type="text" name="nama_kategori" class="form-control" placeholder="Nama kategori" required>
             <button class="btn btn-success" name="tambah">Tambah</button>
         </div>
     </form>
+
+    <!-- Tabel daftar kategori -->
     <table class="table table-bordered">
-        <thead class="table-dark"><tr><th>ID</th><th>Nama Kategori</th></tr></thead>
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nama Kategori</th>
+            </tr>
+        </thead>
         <tbody>
             <?php while($row = $kategori->fetch_assoc()){ ?>
-                <tr><td><?= $row['id_kategori'] ?></td><td><?= $row['nama_kategori'] ?></td></tr>
+                <tr>
+                    <td><?= $row['id_kategori'] ?></td>
+                    <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
+                </tr>
             <?php } ?>
         </tbody>
     </table>

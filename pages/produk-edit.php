@@ -1,20 +1,38 @@
 <?php
+// Perbaikan utama: path file harus naik 1 folder dari /pages ke /config
 include_once __DIR__ . '/../config/class-master.php';
+
+// Buat objek dari class MasterData
 $master = new MasterData();
 
-if(!isset($_GET['id'])) { header('Location: produk-list.php'); exit; }
+// Cek apakah parameter id dikirim dari URL
+if (!isset($_GET['id'])) {
+    header('Location: produk-list.php');
+    exit;
+}
+
 $id = (int) $_GET['id'];
+
+// Ambil data produk berdasarkan ID
 $produk = $master->getProdukById($id);
+
+// Ambil semua kategori untuk dropdown
 $kategori = $master->getAllKategori();
 
-if(!$produk) { echo 'Produk tidak ditemukan'; exit; }
+// Jika produk tidak ditemukan
+if (!$produk) {
+    echo "<script>alert('Produk tidak ditemukan!');window.location='produk-list.php';</script>";
+    exit;
+}
 
-if(isset($_POST['update'])){
-    $_POST['id_produk'] = $id;
-    if($master->updateProduk($_POST)){
-        echo "<script>alert('Produk diperbarui!');window.location='produk-list.php';</script>";
+// Jika tombol update ditekan
+if (isset($_POST['update'])) {
+    $_POST['id_produk'] = $id; // tambahkan id ke data yang dikirim
+    if ($master->updateProduk($_POST)) {
+        echo "<script>alert('Produk berhasil diperbarui!');window.location='produk-list.php';</script>";
+        exit;
     } else {
-        echo "<script>alert('Gagal memperbarui produk');</script>";
+        echo "<script>alert('Gagal memperbarui produk!');</script>";
     }
 }
 ?>
@@ -31,19 +49,23 @@ if(isset($_POST['update'])){
     <form method="POST">
         <div class="mb-3">
             <label>Nama Produk</label>
-            <input type="text" name="nama_produk" class="form-control" required value="<?= htmlspecialchars($produk['nama_produk']) ?>">
+            <input type="text" name="nama_produk" class="form-control" required
+                   value="<?= htmlspecialchars($produk['nama_produk']) ?>">
         </div>
         <div class="mb-3">
             <label>Harga</label>
-            <input type="number" name="harga" class="form-control" required value="<?= htmlspecialchars($produk['harga']) ?>">
+            <input type="number" name="harga" class="form-control" required
+                   value="<?= htmlspecialchars($produk['harga']) ?>">
         </div>
         <div class="mb-3">
             <label>Stok</label>
-            <input type="number" name="stok" class="form-control" required value="<?= htmlspecialchars($produk['stok']) ?>">
+            <input type="number" name="stok" class="form-control" required
+                   value="<?= htmlspecialchars($produk['stok']) ?>">
         </div>
         <div class="mb-3">
             <label>No. Telepon</label>
-            <input type="text" name="tlpn" class="form-control" value="<?= htmlspecialchars($produk['tlpn']) ?>">
+            <input type="text" name="tlpn" class="form-control"
+                   value="<?= htmlspecialchars($produk['tlpn']) ?>">
         </div>
         <div class="mb-3">
             <label>Alamat</label>
@@ -53,9 +75,10 @@ if(isset($_POST['update'])){
             <label>Kategori</label>
             <select name="id_kategori" class="form-select" required>
                 <option value="">-- Pilih Kategori --</option>
-                <?php while($row = $kategori->fetch_assoc()){ ?>
-                    <option value="<?= $row['id_kategori'] ?>" <?php if($row['id_kategori']==$produk['id_kategori']) echo 'selected'; ?>>
-                        <?= $row['nama_kategori'] ?>
+                <?php while ($row = $kategori->fetch_assoc()) { ?>
+                    <option value="<?= $row['id_kategori'] ?>"
+                        <?= ($row['id_kategori'] == $produk['id_kategori']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($row['nama_kategori']) ?>
                     </option>
                 <?php } ?>
             </select>

@@ -18,4 +18,4 @@ CREATE TABLE tb_produk (
 );
 
 -- contoh data kategori
-INSERT INTO tb_kategori (nama_kategori) VALUES ('Elektronik'), ('Pakaian'), ('Makanan');
+INSERT INTO tb_kategori (nama_kategori) VALUES ('Daun'), ('Buah'), ('Pinang');
