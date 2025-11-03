@@ -1,0 +1,9 @@
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+#wrapper { display:flex; width:100%; align-items:stretch; }
+#sidebar-wrapper { width:250px; transition:all 0.3s; min-height:100vh; }
+#wrapper.toggled #sidebar-wrapper { margin-left:-250px; }
+.list-group-item { border:0; }
+.card { border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+.sidebar-heading { background: linear-gradient(90deg,#117a65,#138d75); color:#fff; }
+.btn-primary { background:#117a65; border-color:#117a65; }
+.btn-warning { background:#f39c12; border-color:#f39c12; }
