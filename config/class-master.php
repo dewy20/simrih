@@ -71,4 +71,3 @@ class MasterData extends Database {
         return $stmt->execute();
     }
 }
-?>
