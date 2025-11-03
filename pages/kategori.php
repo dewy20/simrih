@@ -1,18 +1,18 @@
 <?php
 // Panggil class MasterData
-include_once __DIR__ . '/../config/class-master.php';
-$master = new MasterData();
+include_once __DIR__ . '/../config/class-Kategori.php';
+$kategori = new Kategori();
 
 // Tambah kategori baru
 if(isset($_POST['tambah'])){
     $nama_kategori = $_POST['nama_kategori'];
-    $master->insertKategori($nama_kategori);
+    $kategori->insertKategori($nama_kategori);
     header('Location: kategori.php');
     exit;
 }
 
 // Ambil semua kategori dari database
-$kategori = $master->getAllKategori();
+$kategori = $Kategori->getAllKategori();
 ?>
 <!DOCTYPE html>
 <html lang="id">

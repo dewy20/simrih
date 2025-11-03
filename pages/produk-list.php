@@ -1,26 +1,24 @@
 <?php
-// ======================================================
+
 // BAGIAN AWAL: Koneksi ke class MasterData (CRUD utama)
-// ======================================================
+
 
 // Memanggil file class-master.php yang berisi class Database & MasterData
-include_once __DIR__ . '/../config/class-master.php';
+include_once __DIR__ . '/../config/class-Kategori.php';
 
 // Membuat objek dari class MasterData
-$master = new MasterData();
+$Kategori = new Kategori();
 
 // Memanggil fungsi getAllProduk() untuk mengambil semua data produk dari database
-$data = $master->getAllProduk();
-
-// ======================================================
+$data = $Kategori->getAllProduk();
 // PROSES HAPUS PRODUK
-// ======================================================
+
 // Jika terdapat parameter 'hapus' di URL (misal: ?hapus=3)
 if (isset($_GET['hapus'])) {
     $id = intval($_GET['hapus']); // Mengubah nilai menjadi integer untuk keamanan
 
     // Memanggil fungsi deleteProduk() dari class MasterData
-    if ($master->deleteProduk($id)) {
+ if ($Kategori->deleteProduk($id)) {
         // Jika berhasil, tampilkan pesan dan reload halaman daftar produk
         echo "<script>
                 alert('Produk berhasil dihapus!');

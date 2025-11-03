@@ -1,7 +1,7 @@
 <?php
-include_once '../config/class-master.php'; // pastikan path benar
+include_once '../config/class-Kategori.php'; // pastikan path benar
 
-$produk = new MasterData(); // buat objek dari class MasterData
+$produk = new Kategori(); // buat objek dari class MasterData
 $kategori = $produk->getAllKategori(); // ambil semua kategori (untuk dropdown nanti)
 
 // Cek jika tombol "Simpan" ditekan

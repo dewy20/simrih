@@ -1,7 +1,7 @@
 <?php
 include_once 'db-config.php';
 
-class MasterData extends Database {
+class Kategori extends Database {
 
     // Kategori
     public function getAllKategori(){
@@ -71,3 +71,4 @@ class MasterData extends Database {
         return $stmt->execute();
     }
 }
+?>

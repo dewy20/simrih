@@ -1,9 +1,9 @@
 <?php
 // Perbaikan utama: path file harus naik 1 folder dari /pages ke /config
-include_once __DIR__ . '/../config/class-master.php';
+include_once __DIR__ . '/../config/class-Kategori.php';
 
 // Buat objek dari class MasterData
-$master = new MasterData();
+$kategori= new Kategori();
 
 // Cek apakah parameter id dikirim dari URL
 if (!isset($_GET['id'])) {
@@ -14,10 +14,10 @@ if (!isset($_GET['id'])) {
 $id = (int) $_GET['id'];
 
 // Ambil data produk berdasarkan ID
-$produk = $master->getProdukById($id);
+$produk = $kategori->getProdukById($id);
 
 // Ambil semua kategori untuk dropdown
-$kategori = $master->getAllKategori();
+$kategori = $kategori->getAllKategori();
 
 // Jika produk tidak ditemukan
 if (!$produk) {
@@ -28,7 +28,7 @@ if (!$produk) {
 // Jika tombol update ditekan
 if (isset($_POST['update'])) {
     $_POST['id_produk'] = $id; // tambahkan id ke data yang dikirim
-    if ($master->updateProduk($_POST)) {
+    if ($kategori->updateProduk($_POST)) {
         echo "<script>alert('Produk berhasil diperbarui!');window.location='produk-list.php';</script>";
         exit;
     } else {
