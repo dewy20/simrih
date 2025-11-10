@@ -1,6 +1,6 @@
 /* ========================
-   STYLE UTAMA SIMRIH
-   ======================== */
+       STYLE UTAMA SIMRIH
+       ======================== */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -31,7 +31,7 @@ body {
 
 .sidebar-heading {
   background: linear-gradient(90deg, #117a65, #138d75);
-  color: #ffffff;
+  color: #12b112;
   padding: 15px;
   font-weight: bold;
   text-align: center;
@@ -80,7 +80,7 @@ body {
 .card {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(19, 56, 32, 0.95);
   padding: 20px;
 }
 
