@@ -1,40 +1,129 @@
+/* ========================
+   STYLE UTAMA SIMRIH
+   ======================== */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
+/* ====== WRAPPER ====== */
 #wrapper {
   display: flex;
   width: 100%;
   align-items: stretch;
 }
+
 #sidebar-wrapper {
   width: 250px;
   transition: all 0.3s;
   min-height: 100vh;
 }
+
 #wrapper.toggled #sidebar-wrapper {
   margin-left: -250px;
 }
+
+/* ====== SIDEBAR DAN TOMBOL ====== */
 .list-group-item {
   border: 0;
 }
-.card {
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
+
 .sidebar-heading {
   background: linear-gradient(90deg, #117a65, #138d75);
-  color: #067647;
+  color: #ffffff;
+  padding: 15px;
+  font-weight: bold;
+  text-align: center;
 }
+
 .btn-primary {
   background: #117a65;
   border-color: #117a65;
 }
+
 .btn-warning {
   background: #72c6d4;
   border-color: #f39c12;
 }
 
+/* ====== KONTEN HALAMAN ====== */
 .page-content-wrapper {
-  background-color: #117a65;
+  background: url("simrih/asset/css/style.css/images/sirih.jepg") no-repeat
+    center center fixed;
   background-size: cover;
+  background-color: #117a65; /* fallback kalau gambar tidak ditemukan */
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+
+/* Tambahkan overlay hijau transparan agar teks tetap terbaca */
+.page-content-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(17, 122, 101, 0.4); /* hijau transparan */
+  z-index: 0;
+}
+
+/* Supaya konten di atas overlay */
+.page-content-wrapper > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ====== KARTU / FORM ====== */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+}
+
+/* ====== TEKS DAN JUDUL ====== */
+h3,
+h4,
+h5 {
+  color: #117a65;
+  font-weight: bold;
+}
+
+/* ====== TABEL ====== */
+.table {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+}
+
+.table thead {
+  background: #117a65;
+  color: white;
+}
+
+/* ====== TOMBOL TAMBAHAN ====== */
+.btn-success {
+  background-color: #138d75;
+  border-color: #138d75;
+}
+
+.btn-success:hover {
+  background-color: #0e6655;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  #sidebar-wrapper {
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  .page-content-wrapper {
+    padding: 10px;
+  }
 }

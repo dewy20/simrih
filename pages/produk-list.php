@@ -6,6 +6,7 @@
 // Memanggil file class-master.php yang berisi class Database & MasterData
 include_once __DIR__ . '/../config/class-Kategori.php';
 
+
 // Membuat objek dari class MasterData
 $Kategori = new Kategori();
 

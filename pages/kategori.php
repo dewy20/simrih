@@ -1,18 +1,26 @@
 <?php
-// Panggil class MasterData
+// Panggil class Kategori
 include_once __DIR__ . '/../config/class-Kategori.php';
-$kategori = new Kategori();
+$kategoriObj = new Kategori();
 
 // Tambah kategori baru
-if(isset($_POST['tambah'])){
+if (isset($_POST['tambah'])) {
     $nama_kategori = $_POST['nama_kategori'];
-    $kategori->insertKategori($nama_kategori);
+    $kategoriObj->insertKategori($nama_kategori);
+    header('Location: kategori.php');
+    exit;
+}
+
+// Hapus kategori (jika ada parameter ?hapus=id)
+if (isset($_GET['hapus'])) {
+    $id = $_GET['hapus'];
+    $kategoriObj->deleteKategori($id);
     header('Location: kategori.php');
     exit;
 }
 
 // Ambil semua kategori dari database
-$kategori = $Kategori->getAllKategori();
+$dataKategori = $kategoriObj->getAllKategori();
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -34,20 +42,32 @@ $kategori = $Kategori->getAllKategori();
     </form>
 
     <!-- Tabel daftar kategori -->
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
-                <th>ID</th>
+                <th width="60">ID</th>
                 <th>Nama Kategori</th>
+                <th width="120">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            <?php while($row = $kategori->fetch_assoc()){ ?>
-                <tr>
-                    <td><?= $row['id_kategori'] ?></td>
-                    <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
-                </tr>
-            <?php } ?>
+            <?php if ($dataKategori->num_rows > 0): ?>
+                <?php while($row = $dataKategori->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= $row['id_kategori'] ?></td>
+                        <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
+                        <td>
+                            <a href="kategori.php?hapus=<?= $row['id_kategori'] ?>"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Yakin ingin menghapus kategori ini?');">
+                               Hapus
+                            </a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr><td colspan="3" class="text-center">Belum ada kategori</td></tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

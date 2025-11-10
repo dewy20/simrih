@@ -1,6 +1,8 @@
 <?php
 include_once '../config/class-Kategori.php'; // pastikan path benar
 
+
+
 $produk = new Kategori(); // buat objek dari class MasterData
 $kategori = $produk->getAllKategori(); // ambil semua kategori (untuk dropdown nanti)
 

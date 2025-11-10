@@ -1,11 +1,13 @@
 <?php
-// Perbaikan utama: path file harus naik 1 folder dari /pages ke /config
+// ====== INCLUDE FILE CLASS ======
+include_once __DIR__ . '/../config/class-Produk.php';
 include_once __DIR__ . '/../config/class-Kategori.php';
 
-// Buat objek dari class MasterData
-$kategori= new Kategori();
+// ====== BUAT OBJEK DARI CLASS ======
+$produk = new Produk();
+$kategoriObj = new Kategori();
 
-// Cek apakah parameter id dikirim dari URL
+// ====== CEK ID PRODUK DI URL ======
 if (!isset($_GET['id'])) {
     header('Location: produk-list.php');
     exit;
@@ -13,22 +15,23 @@ if (!isset($_GET['id'])) {
 
 $id = (int) $_GET['id'];
 
-// Ambil data produk berdasarkan ID
-$produk = $kategori->getProdukById($id);
+// ====== AMBIL DATA PRODUK BERDASARKAN ID ======
+$dataProduk = $produk->getProdukById($id);
 
-// Ambil semua kategori untuk dropdown
-$kategori = $kategori->getAllKategori();
+// ====== AMBIL SEMUA KATEGORI UNTUK DROPDOWN ======
+$dataKategori = $kategoriObj->getAllKategori();
 
-// Jika produk tidak ditemukan
-if (!$produk) {
+// ====== CEK JIKA PRODUK TIDAK DITEMUKAN ======
+if (!$dataProduk) {
     echo "<script>alert('Produk tidak ditemukan!');window.location='produk-list.php';</script>";
     exit;
 }
 
-// Jika tombol update ditekan
+// ====== SAAT TOMBOL UPDATE DITEKAN ======
 if (isset($_POST['update'])) {
-    $_POST['id_produk'] = $id; // tambahkan id ke data yang dikirim
-    if ($kategori->updateProduk($_POST)) {
+    $_POST['id_produk'] = $id; // tambahkan id ke data post
+
+    if ($produk->updateProduk($_POST)) {
         echo "<script>alert('Produk berhasil diperbarui!');window.location='produk-list.php';</script>";
         exit;
     } else {
@@ -50,34 +53,34 @@ if (isset($_POST['update'])) {
         <div class="mb-3">
             <label>Nama Produk</label>
             <input type="text" name="nama_produk" class="form-control" required
-                   value="<?= htmlspecialchars($produk['nama_produk']) ?>">
+                   value="<?= htmlspecialchars($dataProduk['nama_produk']) ?>">
         </div>
         <div class="mb-3">
             <label>Harga</label>
             <input type="number" name="harga" class="form-control" required
-                   value="<?= htmlspecialchars($produk['harga']) ?>">
+                   value="<?= htmlspecialchars($dataProduk['harga']) ?>">
         </div>
         <div class="mb-3">
             <label>Stok</label>
             <input type="number" name="stok" class="form-control" required
-                   value="<?= htmlspecialchars($produk['stok']) ?>">
+                   value="<?= htmlspecialchars($dataProduk['stok']) ?>">
         </div>
         <div class="mb-3">
             <label>No. Telepon</label>
             <input type="text" name="tlpn" class="form-control"
-                   value="<?= htmlspecialchars($produk['tlpn']) ?>">
+                   value="<?= htmlspecialchars($dataProduk['tlpn']) ?>">
         </div>
         <div class="mb-3">
             <label>Alamat</label>
-            <textarea name="alamat" class="form-control"><?= htmlspecialchars($produk['alamat']) ?></textarea>
+            <textarea name="alamat" class="form-control"><?= htmlspecialchars($dataProduk['alamat']) ?></textarea>
         </div>
         <div class="mb-3">
             <label>Kategori</label>
             <select name="id_kategori" class="form-select" required>
                 <option value="">-- Pilih Kategori --</option>
-                <?php while ($row = $kategori->fetch_assoc()) { ?>
+                <?php while ($row = $dataKategori->fetch_assoc()) { ?>
                     <option value="<?= $row['id_kategori'] ?>"
-                        <?= ($row['id_kategori'] == $produk['id_kategori']) ? 'selected' : '' ?>>
+                        <?= ($row['id_kategori'] == $dataProduk['id_kategori']) ? 'selected' : '' ?>>
                         <?= htmlspecialchars($row['nama_kategori']) ?>
                     </option>
                 <?php } ?>
@@ -89,4 +92,3 @@ if (isset($_POST['update'])) {
 </div>
 </body>
 </html>
-
